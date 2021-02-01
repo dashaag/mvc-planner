@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<Planner.Models.PlanViewModel>
 
 @{
-    ViewBag.Title = "ListPlans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>ListPlans</h2>
+
+@Html.Partial("Calendar")
+<input class="" type="date" onchange="/Plans/Calendar /?date = this.date">
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,6 +15,7 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
+            <a href="/Plans/Sort/?sort=title" class="glyphicon glyphicon-chevron-down title"></a>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -47,9 +50,8 @@
             <img style="height: 50px" src="@item.Image">
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id  })
         </td>
     </tr>
 }

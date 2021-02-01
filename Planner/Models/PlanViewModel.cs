@@ -8,6 +8,8 @@ namespace Planner.Models
 {
     public class PlanViewModel
     {
+        [Required]
+        public int Id { get; set; }
         [Required(ErrorMessage = "Title is required")]
         [Display(Name = "Title: ")]
         public string Title { get; set; }

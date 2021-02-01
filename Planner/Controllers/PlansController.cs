@@ -21,6 +21,7 @@ namespace Planner.Controllers
         {
             IEnumerable<PlanViewModel> models = _context.Plans.Select(m => new PlanViewModel
             {
+                Id = m.Id,
                 Title = m.Title,
                 Description = m.Description,
                 Image = m.Image,
@@ -30,6 +31,13 @@ namespace Planner.Controllers
             return View(models);
         }
 
+        public ActionResult Calendar()
+        {
+
+            return PartialView();
+        }
+
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -38,8 +46,8 @@ namespace Planner.Controllers
         [HttpPost]
         public ActionResult Create(AddViewModel model)
         {
-            Plan plan = new Plan 
-            { 
+            Plan plan = new Plan
+            {
                 Title = model.Title,
                 Description = model.Description,
                 Date = model.Date,
@@ -50,5 +58,62 @@ namespace Planner.Controllers
             _context.SaveChanges();
             return RedirectToAction("ListPlans");
         }
+
+        public ActionResult Delete(int id)
+        {
+            _context.Plans.Remove(_context.Plans.Find(id));
+            _context.SaveChanges();
+            return RedirectToAction("ListPlans");
+        }
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            Plan plan = _context.Plans.Find(id);
+            PlanViewModel model = new PlanViewModel
+            {
+                Id = plan.Id,
+                Date = plan.Date,
+                Description = plan.Description,
+                Image = plan.Image,
+                IsPriority = plan.IsPriority,
+                Title = plan.Title
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Edit(PlanViewModel model)
+        {
+            Plan plan = _context.Plans.Find(model.Id);
+            plan.Title = model.Title;
+            plan.Image = model.Image;
+            plan.IsPriority = model.IsPriority;
+            plan.Date = model.Date;
+            plan.Description = model.Description;
+            _context.SaveChanges();
+            return RedirectToAction("ListPlans");
+        }
+
+        public ActionResult Sort(string sort, int? order)
+        {
+            IEnumerable<PlanViewModel> model = _context.Plans.Select(m => new PlanViewModel()
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Description = m.Description,
+                Image = m.Image,
+                Date = m.Date,
+                IsPriority = m.IsPriority
+            });
+            switch (sort)
+            {
+                case "title":
+                    {
+                        model = model.OrderBy(ord => ord.Title);
+                        break;
+                    }
+            }
+            return View("ListPlans", model);
+        }
+
     }
 }
