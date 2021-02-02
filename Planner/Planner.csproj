@@ -178,7 +178,6 @@
     <Content Include="Views\Plans\ListPlans.cshtml" />
     <Content Include="Views\Plans\Create.cshtml" />
     <Content Include="Views\Plans\Edit.cshtml" />
-    <Content Include="Views\Plans\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

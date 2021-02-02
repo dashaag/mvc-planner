@@ -18,7 +18,7 @@ namespace Planner.Models
         public string Description { get; set; }
         [Required(ErrorMessage = "Date is required")]
         [Display(Name = "Date: ")]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         [Required]
         public bool IsPriority { get; set; }
         public string Image { get; set; }

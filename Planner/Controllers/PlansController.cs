@@ -30,11 +30,19 @@ namespace Planner.Controllers
             });
             return View(models);
         }
-
-        public ActionResult Calendar()
+        
+        public ActionResult Calendar(DateTime date)
         {
-
-            return PartialView();
+            var model = _context.Plans.Where(x => x.Date == date).Select(n => new PlanViewModel 
+            {
+                Date = n.Date,
+                Description = n.Description, 
+                Id = n.Id,
+                Image = n.Image,
+                IsPriority = n.IsPriority,
+                Title = n.Title
+            });
+            return PartialView(model);
         }
 
 

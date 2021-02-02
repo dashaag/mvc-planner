@@ -6,8 +6,11 @@
 <h2>ListPlans</h2>
 
 @Html.Partial("Calendar")
-<input class="" type="date" onchange="/Plans/Calendar /?date = this.date">
 
+@using (Html.BeginForm("Calendar", "Plans", FormMethod.Get, new { id="dateForm" }))
+{
+    @Html.TextBox("date", null, new { type = "date", id="mydate"})
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -32,29 +35,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.EditorFor(modelItem => item.IsPriority)
-        </td>
-        <td>
-            <img style="height: 50px" src="@item.Image">
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id  })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => item.IsPriority)
+            </td>
+            <td>
+                <img style="height: 50px" src="@item.Image">
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
 <script>
@@ -62,5 +66,9 @@
         document.getElementById("item_IsPriority").onchange = () => {
             alert("hello")
         }
+        document.getElementById("mydate").onchange = () => {
+            document.getElementById("dateForm").submit();
+        }
     }
+
 </script>

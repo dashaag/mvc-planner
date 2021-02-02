@@ -15,7 +15,7 @@ namespace Planner.Entities.Models
         [Required]
         public string Description { get; set; }
         [Required]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         [Required]
         public bool IsPriority { get; set; }
         public string Image { get; set; }

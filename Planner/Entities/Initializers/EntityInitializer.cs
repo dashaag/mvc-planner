@@ -15,7 +15,7 @@ namespace Planner.Entities.Initializers
             { 
                 Title = "Make a project",
                 Description = "Project for art lesson",
-                Date = "2020-29-01",
+                Date = DateTime.Now.Date,
                 IsPriority = false,
                 Image = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/758px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" });
             base.Seed(context);

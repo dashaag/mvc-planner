@@ -18,7 +18,7 @@ namespace Planner.Models
         [Display(Name = "Date: ")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         [Required]
         public bool IsPriority { get; set; }
         public string Image { get; set; }
