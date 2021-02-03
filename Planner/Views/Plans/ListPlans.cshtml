@@ -5,11 +5,10 @@
 }
 <h2>ListPlans</h2>
 
-@Html.Partial("Calendar")
 
-@using (Html.BeginForm("Calendar", "Plans", FormMethod.Get, new { id="dateForm" }))
+@using (Html.BeginForm("Calendar", "Plans", FormMethod.Get, new { id = "dateForm" }))
 {
-    @Html.TextBox("date", null, new { type = "date", id="mydate"})
+    @Html.TextBox("date", null, new { type = "date", id = "mydate" })
 }
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -44,9 +43,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
+
+            @if ((item.Date - DateTime.Now).TotalDays <= 1)
+            {
+                <td style="background: red">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+            }
+
             <td>
                 @Html.EditorFor(modelItem => item.IsPriority)
             </td>
