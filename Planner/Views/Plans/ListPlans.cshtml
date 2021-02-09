@@ -61,7 +61,7 @@
                 @Html.EditorFor(modelItem => item.IsPriority)
             </td>
             <td>
-                <img style="height: 50px" src="@item.Image">
+                <img style="height: 50px" src="~/Images/@item.Image">
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

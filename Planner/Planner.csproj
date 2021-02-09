@@ -135,6 +135,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Entities\Models\Plan.cs" />
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\ImageWorker.cs" />
     <Compile Include="Models\AddViewModel.cs" />
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

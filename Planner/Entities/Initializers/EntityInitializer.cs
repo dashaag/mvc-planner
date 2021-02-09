@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Planner.Entities.Initializers
 {
-    public class EntityInitializer : DropCreateDatabaseAlways<EFContext>
+    public class EntityInitializer : DropCreateDatabaseIfModelChanges<EFContext>
     {
         protected override void Seed(EFContext context)
         {

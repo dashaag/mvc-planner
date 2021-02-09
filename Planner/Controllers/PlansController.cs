@@ -1,8 +1,10 @@
 ﻿using Planner.Entities;
 using Planner.Entities.Models;
+using Planner.Helpers;
 using Planner.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,13 +32,13 @@ namespace Planner.Controllers
             });
             return View(models);
         }
-        
+
         public ActionResult Calendar(DateTime date)
         {
-            var model = _context.Plans.Where(x => x.Date == date).Select(n => new PlanViewModel 
+            var model = _context.Plans.Where(x => x.Date == date).Select(n => new PlanViewModel
             {
                 Date = n.Date,
-                Description = n.Description, 
+                Description = n.Description,
                 Id = n.Id,
                 Image = n.Image,
                 IsPriority = n.IsPriority,
@@ -52,18 +54,29 @@ namespace Planner.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(AddViewModel model)
+        public ActionResult Create(AddViewModel model, HttpPostedFileBase imageFile)
         {
-            Plan plan = new Plan
+            string fileName = Guid.NewGuid().ToString() + ".jpg";
+            string image = Server.MapPath(Constants.ImagePath) + "\\" + fileName;
+            using (Bitmap bmp = new Bitmap(imageFile.InputStream))
             {
-                Title = model.Title,
-                Description = model.Description,
-                Date = model.Date,
-                Image = model.Image,
-                IsPriority = false
-            };
-            _context.Plans.Add(plan);
-            _context.SaveChanges();
+                Bitmap saveImage = ImageWorker.CreateImage(bmp, 400, 400);
+                if(saveImage!=null)
+                {
+                    saveImage.Save(image);
+                    Plan plan = new Plan
+                    {
+                        Title = model.Title,
+                        Description = model.Description,
+                        Date = model.Date,
+                        Image = fileName,
+                        IsPriority = false
+                    };
+                    _context.Plans.Add(plan);
+                    _context.SaveChanges();
+                }
+               
+            }
             return RedirectToAction("ListPlans");
         }
 
